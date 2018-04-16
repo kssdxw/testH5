@@ -9,14 +9,13 @@
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="js/jquery.gray.min.js"></script>
     <script type="text/javascript" src="js/loading.js"></script>
-    <script type="text/javascript" src="js/html2canvas.min.js"></script>
     <link href="css/style.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
     <div id="background">
         <div id="aaa" class="frist">
             <div id="load">
-                <div class="text" style="display:none">0%</div>
+                <div class="text">0%</div>
             </div>
             <div id="begin" style="display:none">
                 <div id="gan">
@@ -140,28 +139,8 @@
             }
             $('#baifenbi').html(percent + "%")
         }
-        /**
- * 禁止浏览器下拉回弹
- */
-        function stopDrop() {
-            var lastY;//最后一次y坐标点
-            $(document.body).on('touchstart', function (event) {
-                lastY = event.originalEvent.changedTouches[0].clientY;//点击屏幕时记录最后一次Y度坐标。
-            });
-            $(document.body).on('touchmove', function (event) {
-                var y = event.originalEvent.changedTouches[0].clientY;
-                var st = $(this).scrollTop(); //滚动条高度  
-                if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。
-                    lastY = y;
-                    event.preventDefault();
-                }
-                lastY = y;
-
-            });
-        }
         //接入后端文件
         $(function () {
-            stopDrop()
             $("#ttt").empty();
             $.ajax({
                 type: "GET",//请求方式
@@ -174,7 +153,7 @@
                         var html = " ";
                         html += '<div id=num-' + comment['number'] + ' style="display:none"><div class="ttt-1"> <div class="timu" id="timu">' + comment['questions'] + '</div></div><div class= "ttt-2"> <div class="a" id="a" >A、 ' + comment['a'] + '</div></div><div class="ttt-3"> <div class="b" id="b">B、 ' + comment['b'] + '</div></div><div class="ttt-3"> <div class="c" id="c">C、 ' + comment['c'] + '</div></div><div class="ttt-3"> <div class="d" id="d">D、 ' + comment['d'] + '</div></div><div class="e" style="display:none">' + comment['e'] + '</div></div>';
 
-                        my_ran2(79, 4, 99);
+                        my_ran2(80, 4, 100);
                         $('#ttt').append(html);
                     });
                 }
@@ -192,11 +171,10 @@
                 $(this).unbind('click');
                 $("body").removeClass("aaaa")
             });
-
             //选项点击
             $("div").on("click", "#a,#b,#c,#d", function () {
                 var thisClick = this;
-                $(thisClick).removeAttr("id").parent().siblings().children().removeAttr("id");
+                $(thisClick).removeAttr("id").siblings().parent().children().removeAttr("id");
                 if ($(thisClick).parent().parent().attr('id') == $(".a:last").parent().parent().attr('id')) {
                     setTimeout(function () {
                         $("#aaa").addClass("fouth").removeClass("third");///aaa
@@ -216,8 +194,6 @@
                             $(".btn-audio").remove();
                         }
                         $('#m4a').attr('src', audioNow);
-                        var trueClass = $(thisClick).parent().siblings().last().html();
-                        $("." + trueClass).removeClass('colorS')
                     }, 1000);
                 }
                 
@@ -227,15 +203,12 @@
                     var choo = $(thisClick).attr('class');
                     var imgClass = choo + "-img"
                     $("#true").addClass(imgClass).show();
-                    $(thisClick).addClass('colorS')
 
                 } else {
                     var trueClass = $(thisClick).parent().siblings().last().html();
                     $("#true").addClass(trueClass + "-img").show();
-                    $("." + trueClass).addClass('colorS')
                     var falseClass = $(thisClick).attr('class')
                     $("#false").addClass(falseClass + "-img").show();
-                    $(thisClick).addClass('colorS')
                 }
             });
         })
@@ -278,7 +251,7 @@
                 "img/choose.png",
                 "img/end.png",
                 "img/start.png"
-            ], 20);
+            ], 18);
         score = 0;
         changing = true;
 
