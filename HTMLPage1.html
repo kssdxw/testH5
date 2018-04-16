@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>大连话语言能力测试</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="applicable-device" content="pc,mobile" />
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/jquery.gray.min.js"></script>
+    <script type="text/javascript" src="js/loading.js"></script>
+    <link href="css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div id="background">
+        <div id="aaa" class="frist">
+            <div id="load">
+                <div class="text">0%</div>
+            </div>
+            <div id="begin" style="display:none">
+                <div id="gan">
+                    <img id="click" src="img/button.png" />
+                </div>
+            </div>
+            <div class="background3" style="display:none;">
+                <div id="head1">
+                    <img src="../img/3-1.png" />
+                </div>
+                <div id="ttt">
+                    <div class="ttt-1">
+                        <div class="timu">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
+                    </div>
+                    <div class="ttt-2">
+                        <div class="a">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
+                    </div>
+                    <div class="ttt-3">
+                        <div class="b">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
+                    </div>
+                    <div class="ttt-3">
+                        <div class="c">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
+                    </div>
+                    <div class="ttt-3">
+                        <div class="d">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
+                    </div>
+                </div>
+            </div>
+            <div id="icon">
+                <div id="true" style="display:none">
+                    <img src="img/true.png" />
+                </div>
+                <div id="false" style="display:none">
+                    <img src="img/false.png" />
+                </div>
+            </div>
+            <div class="btn-audio" style="display:none">
+                <div id="audio">
+                    <img src="img/audio.png" />
+                </div>
+                <audio id="m4a" src="img/num-1.m4a" type="audio/mp3"></audio>
+            </div>
+            <div id="ending" style="display:none">
+                <div id="background4">
+                    <div id="kong"></div>
+                    <div id="eee">
+                        <div id="head4">
+                            <img src="img/3-1.png" />
+                        </div>
+                        <div class="fenshu">
+                            <div id="fenshu">100</div>
+                        </div>
+                        <div id="fff">
+                            <div id="touxiang">
+                                <img src="img/icon.png" />
+                            </div>
+                            <div id="nicheng">十月</div>
+                        </div>
+                        <div class="ggg">
+                            <div class="span1">你是第</div>
+                            <div id="renshu">3975</div>
+                            <div class="span1">位考生，</div>
+                            <br />
+                            <div class="span1">在本次</div>
+                            <div class="span2">大连话语言能力测试</div>
+                            <div class="span1">中</div>
+                            <br />
+                            <div class="span1">击败了全大连市</div>
+                            <div id="baifenbi">99%</div>
+                            <div class="span1">的考生</div>
+                            <br />
+                            <div id="juzhong">
+                                <div class="span3">持此证明，以资鼓励</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="erweima">
+                        <img id="erwei" src="img/4-2.png" />
+                        <img id="ma" src="img/4-3.png" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        var yes = 0;
+        var lengths = 1;
+        var change = true;
+        var music = true;
+        var abc = 0;
+        var fenzhi = 5//分值
+        //开始按钮
+        function baifenbi() {
+            var percent = 0
+            var mark = abc * fenzhi
+            if (mark >= 95 && mark <= 99) {
+                percent = 99
+            } else if (mark < 95 && mark >= 85) {
+                percent = 90
+            } else if (mark < 85 && mark >= 75) {
+                percent = 80
+            } else if (mark < 75 && mark >= 65) {
+                percent = 75
+            } else if (mark < 65 && mark >= 55) {
+                percent = 70
+            } else if (mark < 55 && mark >= 45) {
+                percent = 65
+            } else if (mark < 45 && mark >= 35) {
+                percent = 50
+            } else if (mark < 35 && mark >= 25) {
+                percent = 30
+            } else if (mark < 25 && mark >= 15) {
+                percent = 20
+            } else if (mark == 0) {
+                percent = 0
+            } else if (mark == 100) {
+                percent = 100
+            } else {
+                percent = 5
+            }
+            $('#baifenbi').html(percent + "%")
+        }
+        //接入后端文件
+        $(function () {
+            $("#ttt").empty();
+            $.ajax({
+                type: "GET",//请求方式
+                url: "content.json",//地址，就是json文件的请求路径
+                dataType: "json",//数据类型可以为 text xml json  script  jsonp
+                scriptCharset: 'utf-8',
+                success: function (date) {//返回的参数就是 action里面所有的有get和set方法的参数
+                    $.each(date, function (commentIndex, comment) {
+
+                        var html = " ";
+                        html += '<div id=num-' + comment['number'] + ' style="display:none"><div class="ttt-1"> <div class="timu" id="timu">' + comment['questions'] + '</div></div><div class= "ttt-2"> <div class="a" id="a" >A、 ' + comment['a'] + '</div></div><div class="ttt-3"> <div class="b" id="b">B、 ' + comment['b'] + '</div></div><div class="ttt-3"> <div class="c" id="c">C、 ' + comment['c'] + '</div></div><div class="ttt-3"> <div class="d" id="d">D、 ' + comment['d'] + '</div></div><div class="e" style="display:none">' + comment['e'] + '</div></div>';
+
+                        my_ran2(80, 4, 100);
+                        $('#ttt').append(html);
+                    });
+                }
+            });
+            //开始按钮
+            $("#aaa").bind("click", function () {
+                $.each(arr, function (index, value) {
+                    $("#" + "num-" + value).remove();
+                });
+                $("#aaa").addClass("third").removeClass("second");
+                $("#click").hide();
+                $(".background3").show();//一会去掉1
+                $("#a:first").parent().parent().show();
+                $(".btn-audio").show();
+                $(this).unbind('click');
+                $("body").removeClass("aaaa")
+            });
+            //选项点击
+            $("div").on("click", "#a,#b,#c,#d", function () {
+                var thisClick = this;
+                $(thisClick).removeAttr("id").siblings().parent().children().removeAttr("id");
+                if ($(thisClick).parent().parent().attr('id') == $(".a:last").parent().parent().attr('id')) {
+                    setTimeout(function () {
+                        $("#aaa").addClass("fouth").removeClass("third");///aaa
+                        $(thisClick).parent().parent().hide();
+                        $("#ending").show();
+                        $("#fenshu").html(abc * fenzhi)//个数乘以分值
+                        $("#true,#false").hide()
+                        $("#head1").hide()
+                        baifenbi()
+                    }, 1000);
+                } else {
+                    setTimeout(function () {
+                        $(thisClick).parent().parent().hide().next().show();
+                        $("#true,#false").hide().removeClass();
+                        var audioNow = "img/" + $(thisClick).parent().parent().next().attr('id') + ".m4a"
+                        if ($(thisClick).parent().parent().prev().attr('id') == 'num-2') {
+                            $(".btn-audio").remove();
+                        }
+                        $('#m4a').attr('src', audioNow);
+                    }, 1000);
+                }
+                
+                //计算分数
+                if ($(thisClick).attr('class') == $(thisClick).parent().siblings().last().html()) {
+                    abc += 1
+                    var choo = $(thisClick).attr('class');
+                    var imgClass = choo + "-img"
+                    $("#true").addClass(imgClass).show();
+
+                } else {
+                    var trueClass = $(thisClick).parent().siblings().last().html();
+                    $("#true").addClass(trueClass + "-img").show();
+                    var falseClass = $(thisClick).attr('class')
+                    $("#false").addClass(falseClass + "-img").show();
+                }
+            });
+        })
+
+        /*$.get("item.json",function(result){
+            //result数据添加到box容器中;
+            addBox(result);
+        });*/
+
+        function my_ran2(n, min, max) {
+            arr = [];
+            for (i = 0; i < n; i++) {
+                arr[i] = parseInt(Math.random() * (max - min + 1) + min);
+                for (j = 0; j < i; j++) {
+                    if (arr[i] == arr[j]) {
+                        i = i - 1;
+                        break;
+                    }
+                }
+            }
+            return arr;
+        }
+        //初始化载入文件，读条
+        var load = new Load(function (p) {
+            var text = $("#load .text");
+            text.html(parseInt(p * 100) + "%");
+            if ($(".text").text() == "100%") {
+                $("#load").hide();
+                $("#begin").show();
+                $("#aaa").addClass("second").removeClass("frist")
+                $("#background").show();
+                $("body").addClass("aaaa")
+
+                return false;
+            }
+        }, loadComplete, [
+                "img/audio.png",
+                "img/background.png",
+                "img/button.png",
+                "img/choose.png",
+                "img/end.png",
+                "img/start.png"
+            ], 18);
+        score = 0;
+        changing = true;
+
+        var indexs = 0;
+
+        $(function () {
+            load.Start();
+
+        });
+
+
+        var UA = function () {
+            var userAgent = navigator.userAgent.toLowerCase();
+            return {
+                ipad: (/ipad/i).test(userAgent),
+                iphone: (/iphone/i).test(userAgent),
+                android: (/android/i).test(userAgent),
+                weixin: (/micromessenger/i).test(userAgent)
+            };
+        };
+        var ua = UA();
+        if (ua.weixin || ua.android || ua.ipad || ua.iphone) {
+            $(".qr1").addClass("hide");
+            $(".qr2").addClass("hide");
+        }
+
+
+        function loadComplete() { }
+        $(function () {
+            //播放器控制
+            var audio = document.getElementById('m4a');
+            audio.volume = .3;
+            $('#audio').click(function () {
+                event.stopPropagation();//防止冒泡
+                if (audio.paused) { //如果当前是暂停状态
+                    audio.play(); //播放
+                    return;
+                } else {//当前是播放状态
+                    audio.pause(); //暂停
+                    audio.currentTime = 0.0; //时间归零
+                }
+            });
+        })
+    </script>
+</body>
+</html>
