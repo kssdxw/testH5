@@ -1,12 +1,10 @@
 ﻿#load {
-    width: 200px;
-    height: 180px;
-    background: url("../img/laoding.gif") no-repeat center;
+    width: 30vw;
+    height: 32vw;
+    background: url("../img/loading111.gif") no-repeat center;
     background-size: 100%;
-    position: absolute;
-    left: 50%;
-    top: 30%;
-    margin-left: -85px;
+    margin:0 auto;
+    margin-top:70vw
 }
 
 .text {
@@ -30,7 +28,9 @@ body {
     position: relative;
     margin: 0 auto;
 }
-
+.colorS{
+    color:orange;
+}
 #gan {
     text-align: center;
 }
@@ -198,7 +198,6 @@ body {
 
 #renshu, #baifenbi {
     font-size: 5.5vw;
-    color: orange;
     margin: 0 2vw;
 }
 
